@@ -1,4 +1,4 @@
-# ProfilePeek 🚀
+# ProfilePeek 👀
 
 ProfilePeek is an OSINT (Open Source Intelligence) project that helps to discover user existence on various platforms like Facebook, Instagram, etc., using usernames.
 
@@ -45,24 +45,13 @@ python profilepeek.py --username exampleuser
 - Currently, ProfilePeek is only working on Windows OS.
 - Ensure you have Google Chrome installed on your PC.
 
+## 🚧 Development Status
+
+ProfilePeek is still under development and not yet stable. We will update this section once the project is stable and ready for contributions. Stay tuned!
+
 ## 🤝 Contributing
 
-Contributions are welcome! To contribute to ProfilePeek, follow these steps:
-
-1. Fork the repository.
-2. Create a new branch.
-   ```sh
-   git checkout -b feature-branch
-   ```
-3. Make your changes and commit them.
-   ```sh
-   git commit -m "Add feature"
-   ```
-4. Push to the branch.
-   ```sh
-   git push origin feature-branch
-   ```
-5. Create a pull request.
+Contributions are welcome! Once the development is complete and the project is stable, we will invite everyone to contribute. Please check back later for updates.
 
 ## 📜 License
 
