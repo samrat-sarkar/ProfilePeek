@@ -19,7 +19,7 @@ async def osint(target):
 
     browser = await launch(
         headless=True,
-        executablePath=r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+        executablePath="C:/Program Files/Google/Chrome/Application/chrome.exe",
         args=["--no-sandbox", "--disable-setuid-sandbox"]
     )
 
@@ -45,7 +45,7 @@ async def osint(target):
     title = soup.title.string if soup.title else "N/A"
     body = soup.body.get_text(separator="\n", strip=True) if soup.body else "N/A"
 
-    #print(f"Title:\n{title}\n")
+    # print(f"Title:\n{title}\n")
     # print(f"Body:\n{body}\n")
 
     try:

@@ -5,7 +5,7 @@ from pyppeteer_stealth import stealth
 from bs4 import BeautifulSoup
 
 async def osint(target):
-    url = f'https://x.com/{target}'
+    url = f'https://www.x.com/{target}'
 
     try:
         with open("ua.txt", "r", encoding="utf-8") as file:
@@ -19,7 +19,7 @@ async def osint(target):
 
     browser = await launch(
         headless=True,
-        executablePath=r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+        executablePath="C:/Program Files/Google/Chrome/Application/chrome.exe",
         args=["--no-sandbox", "--disable-setuid-sandbox"]
     )
 
