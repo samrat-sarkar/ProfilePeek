@@ -7,7 +7,7 @@ from pyppeteer_stealth import stealth
 from bs4 import BeautifulSoup
 
 async def osint(target):
-    url = f'https://www.reddit.com/user/{target}'
+    url = f'https://www.pinterest.com/{target}'
 
     try:
         with open("ua.txt", "r", encoding="utf-8") as file:
@@ -60,18 +60,17 @@ async def osint(target):
     title = soup.title.string if soup.title else "N/A"
     body = soup.body.get_text(separator="\n", strip=True) if soup.body else "N/A"
 
-    # print(f"Title:✅{title}✅")
+    #print(f"Title:✅{title}✅")
     # print(f"Body:\n{body}\n")
 
     try:
-        with open("resources/reddit/tags.txt", "r", encoding="utf-8") as file:
+        with open("resources/pinterest/tags.txt", "r", encoding="utf-8") as file:
             titles = {line.strip() for line in file}
 
         if title.strip() in titles:
             return 404
         else:
             return 200
-
 
     except Exception as e:
         if "'NoneType' object has no attribute 'strip'" in str(e):

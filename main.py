@@ -4,12 +4,15 @@ import shutil
 import string
 import asyncio
 from tqdm.asyncio import tqdm
+
 from resources.facebook.main import osint as facebook
 from resources.instagram.main import osint as instagram
 from resources.x.main import osint as x
 from resources.youtube.main import osint as youtube
 from resources.snapchat.main import osint as snapchat
 from resources.reddit.main import osint as reddit
+from resources.pinterest.main import osint as pinterest
+from resources.twitch.main import osint as twitch
 
 def delete_pycache_():
     resources_path = "resources"
@@ -26,12 +29,10 @@ def delete_pycache_():
 def generate_token():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=36))
 
-
 async def check_module(name, func, token, progress):
     status = await func(token)
     progress.update(1)
     return name, status
-
 
 async def check_modules():
     token = generate_token()
@@ -41,6 +42,8 @@ async def check_modules():
         "YouTube": youtube,
         "Snapchat": snapchat,
         "Reddit": reddit,
+        "Pinterest": pinterest,
+        "Twitch": twitch,
         "Instagram": instagram
     }
 
@@ -54,13 +57,15 @@ async def check_modules():
         elif status == 404:
             print(f"{module} Module Up-to-date")
 
-asyncio.run(check_modules())# Call This Function When You Want To Check That Module is Working Properly Or Not
+#asyncio.run(check_modules()) # Call This Function When You Want To Check That Module is Working Properly Or Not
 
-# print(asyncio.run(facebook("zuck")))
-# print(asyncio.run(instagram("zuck")))
+#print(asyncio.run(facebook("zuck")))
+#print(asyncio.run(instagram("zuck")))
 #print(asyncio.run(x("zuck")))
 #print(asyncio.run(youtube("zuck")))
 #print(asyncio.run(snapchat("zuck")))
 #print(asyncio.run(reddit("zuck")))
+#print(asyncio.run(pinterest("zuck")))
+#print(asyncio.run(twitch("zuck")))
 
 delete_pycache_()

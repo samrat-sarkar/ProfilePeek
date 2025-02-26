@@ -1,5 +1,7 @@
 import asyncio
+import os
 import random
+import shutil
 from pyppeteer import launch
 from pyppeteer_stealth import stealth
 from bs4 import BeautifulSoup
@@ -17,9 +19,22 @@ async def osint(target):
     except FileNotFoundError:
         user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36 Edg/97.0.1072.71"
 
+    paths = [
+        "C:/Program Files/Google/Chrome/Application/chrome.exe",
+        "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+    ]
+
+    chrome_path = next((path for path in paths if os.path.exists(path)), None)
+    if not chrome_path:
+        chrome_path = shutil.which("chrome") or shutil.which("chrome.exe")
+
+    if not chrome_path:
+        print("❌ Google Chrome Not Found")
+        exit()
+
     browser = await launch(
         headless=True,
-        executablePath="C:/Program Files/Google/Chrome/Application/chrome.exe",
+        executablePath=chrome_path,
         args=["--no-sandbox", "--disable-setuid-sandbox"]
     )
 
@@ -45,7 +60,7 @@ async def osint(target):
     title = soup.title.string if soup.title else "N/A"
     body = soup.body.get_text(separator="\n", strip=True) if soup.body else "N/A"
 
-    #print(f"Title:\n{title}\n")
+    # print(f"Title:✅{title}✅")
     # print(f"Body:\n{body}\n")
 
     try:
@@ -57,6 +72,10 @@ async def osint(target):
         else:
             return 200
 
+
     except Exception as e:
-        print(f"Error : {e}")
+        if "'NoneType' object has no attribute 'strip'" in str(e):
+            return 404
+        else:
+            print(f"Error : {e}")
 
