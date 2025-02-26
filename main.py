@@ -12,7 +12,11 @@ from resources.youtube.main import osint as youtube
 from resources.snapchat.main import osint as snapchat
 from resources.reddit.main import osint as reddit
 from resources.pinterest.main import osint as pinterest
+<<<<<<< HEAD
 from resources.twitch.main import osint as twitch
+=======
+from resources.quora.main import osint as quora
+>>>>>>> 4919c070f2e913e80bce943675653b1bf549ae11
 
 def delete_pycache_():
     resources_path = "resources"
@@ -42,9 +46,15 @@ async def check_modules():
         "YouTube": youtube,
         "Snapchat": snapchat,
         "Reddit": reddit,
+<<<<<<< HEAD
         "Pinterest": pinterest,
         "Twitch": twitch,
         "Instagram": instagram
+=======
+        "Instagram": instagram,
+        "Pinterest": pinterest,
+        "Quora": quora,
+>>>>>>> 4919c070f2e913e80bce943675653b1bf549ae11
     }
 
     with tqdm(total=len(tasks), desc="Checking Modules", unit="module") as progress:
@@ -57,7 +67,11 @@ async def check_modules():
         elif status == 404:
             print(f"{module} Module Up-to-date")
 
+<<<<<<< HEAD
 #asyncio.run(check_modules()) # Call This Function When You Want To Check That Module is Working Properly Or Not
+=======
+#asyncio.run(check_modules())# Call This Function When You Want To Check That Module is Working Properly Or Not
+>>>>>>> 4919c070f2e913e80bce943675653b1bf549ae11
 
 #print(asyncio.run(facebook("zuck")))
 #print(asyncio.run(instagram("zuck")))
@@ -66,6 +80,10 @@ async def check_modules():
 #print(asyncio.run(snapchat("zuck")))
 #print(asyncio.run(reddit("zuck")))
 #print(asyncio.run(pinterest("zuck")))
+<<<<<<< HEAD
 #print(asyncio.run(twitch("zuck")))
+=======
+#print(asyncio.run(quora("Joshua-N-Marron")))
+>>>>>>> 4919c070f2e913e80bce943675653b1bf549ae11
 
 delete_pycache_()

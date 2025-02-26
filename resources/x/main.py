@@ -34,7 +34,11 @@ async def osint(target):
 
     browser = await launch(
         headless=True,
+<<<<<<< HEAD
         executablePath=chrome_path,
+=======
+        executablePath ="C:/Program Files/Google/Chrome/Application/chrome.exe",
+>>>>>>> 4919c070f2e913e80bce943675653b1bf549ae11
         args=["--no-sandbox", "--disable-setuid-sandbox"]
     )
 
