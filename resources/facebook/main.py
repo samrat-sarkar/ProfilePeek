@@ -48,7 +48,7 @@ async def osint(target):
         "() => { Object.defineProperty(navigator, 'webdriver', { get: () => undefined }) }"
     )
 
-    await page.goto(url, {"waitUntil": "domcontentloaded"})
+    await page.goto(url, {"waitUntil": "networkidle0", "timeout": 60000})
 
     await asyncio.sleep(5)
 
@@ -63,6 +63,8 @@ async def osint(target):
     # print(f"Title:✅{title}✅")
     # print(f"Body:\n{body}\n")
 
+    await browser.close()
+
     try:
         with open("resources/facebook/tags.txt", "r", encoding="utf-8") as file:
             titles = {line.strip() for line in file}
@@ -71,7 +73,6 @@ async def osint(target):
             return 404
         else:
             return 200
-
 
     except Exception as e:
         if "'NoneType' object has no attribute 'strip'" in str(e):

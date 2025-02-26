@@ -1,11 +1,7 @@
 import asyncio
-<<<<<<< HEAD
 import os
 import random
 import shutil
-=======
-import random
->>>>>>> 4919c070f2e913e80bce943675653b1bf549ae11
 from pyppeteer import launch
 from pyppeteer_stealth import stealth
 from bs4 import BeautifulSoup
@@ -23,7 +19,6 @@ async def osint(target):
     except FileNotFoundError:
         user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36 Edg/97.0.1072.71"
 
-<<<<<<< HEAD
     paths = [
         "C:/Program Files/Google/Chrome/Application/chrome.exe",
         "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
@@ -40,11 +35,6 @@ async def osint(target):
     browser = await launch(
         headless=True,
         executablePath=chrome_path,
-=======
-    browser = await launch(
-        headless=True,
-        executablePath="C:/Program Files/Google/Chrome/Application/chrome.exe",
->>>>>>> 4919c070f2e913e80bce943675653b1bf549ae11
         args=["--no-sandbox", "--disable-setuid-sandbox"]
     )
 
@@ -58,7 +48,7 @@ async def osint(target):
         "() => { Object.defineProperty(navigator, 'webdriver', { get: () => undefined }) }"
     )
 
-    await page.goto(url, {"waitUntil": "domcontentloaded"})
+    await page.goto(url, {"waitUntil": "networkidle0", "timeout": 60000})
 
     await asyncio.sleep(5)
 
@@ -70,12 +60,10 @@ async def osint(target):
     title = soup.title.string if soup.title else "N/A"
     body = soup.body.get_text(separator="\n", strip=True) if soup.body else "N/A"
 
-<<<<<<< HEAD
     #print(f"Title:✅{title}✅")
-=======
-    #print(f"Title:\n{title}\n")
->>>>>>> 4919c070f2e913e80bce943675653b1bf549ae11
     # print(f"Body:\n{body}\n")
+
+    await browser.close()
 
     try:
         with open("resources/pinterest/tags.txt", "r", encoding="utf-8") as file:
@@ -87,12 +75,8 @@ async def osint(target):
             return 200
 
     except Exception as e:
-<<<<<<< HEAD
         if "'NoneType' object has no attribute 'strip'" in str(e):
             return 404
         else:
             print(f"Error : {e}")
-=======
-        print(f"Error : {e}")
->>>>>>> 4919c070f2e913e80bce943675653b1bf549ae11
 

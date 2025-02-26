@@ -48,7 +48,7 @@ async def osint(target):
         "() => { Object.defineProperty(navigator, 'webdriver', { get: () => undefined }) }"
     )
 
-    await page.goto(url, {"waitUntil": "domcontentloaded"})
+    await page.goto(url, {"waitUntil": "networkidle0", "timeout": 60000})
 
     await asyncio.sleep(5)
 
@@ -62,6 +62,8 @@ async def osint(target):
 
     #print(f"Title:✅{title}✅")
     #print(f"Body:\n{body}\n")
+
+    await browser.close()
 
     try:
         with open("resources/twitch/tags.txt", "r", encoding="utf-8") as file:
