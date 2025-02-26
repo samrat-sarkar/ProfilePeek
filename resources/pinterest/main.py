@@ -5,7 +5,7 @@ from pyppeteer_stealth import stealth
 from bs4 import BeautifulSoup
 
 async def osint(target):
-    url = f'https://www.instagram.com/{target}'
+    url = f'https://www.pinterest.com/{target}'
 
     try:
         with open("ua.txt", "r", encoding="utf-8") as file:
@@ -19,7 +19,7 @@ async def osint(target):
 
     browser = await launch(
         headless=True,
-        executablePath ="C:/Program Files/Google/Chrome/Application/chrome.exe",
+        executablePath="C:/Program Files/Google/Chrome/Application/chrome.exe",
         args=["--no-sandbox", "--disable-setuid-sandbox"]
     )
 
@@ -45,11 +45,11 @@ async def osint(target):
     title = soup.title.string if soup.title else "N/A"
     body = soup.body.get_text(separator="\n", strip=True) if soup.body else "N/A"
 
-    # print(f"Title:\n{title}\n")
+    #print(f"Title:\n{title}\n")
     # print(f"Body:\n{body}\n")
 
     try:
-        with open("resources/instagram/tags.txt", "r", encoding="utf-8") as file:
+        with open("resources/pinterest/tags.txt", "r", encoding="utf-8") as file:
             titles = {line.strip() for line in file}
 
         if title.strip() in titles:
