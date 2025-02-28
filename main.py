@@ -12,6 +12,8 @@ from resources.snapchat.main import osint as snapchat
 from resources.reddit.main import osint as reddit
 from resources.pinterest.main import osint as pinterest
 from resources.quora.main import osint as quora
+from resources.medium.main import osint as medium
+from resources.mastodon.main import osint as mastodon
 
 def delete_pycache_():
     resources_path = "resources"
@@ -46,6 +48,8 @@ async def check_modules():
         "Instagram": instagram,
         "Pinterest": pinterest,
         "Quora": quora,
+        "Medium": medium,
+        "Mastodon": mastodon,
     }
 
     with tqdm(total=len(tasks), desc="Checking Modules", unit="module") as progress:
@@ -68,5 +72,9 @@ async def check_modules():
 #print(asyncio.run(reddit("zuck")))
 #print(asyncio.run(pinterest("zuck")))
 #print(asyncio.run(quora("Joshua-N-Marron")))
+#print(asyncio.run(medium("realalexnguyen")))
+print(asyncio.run(mastodon("nixCraftgvhvghgv")))
+
+
 
 delete_pycache_()
