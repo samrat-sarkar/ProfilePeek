@@ -7,7 +7,7 @@ from pyppeteer_stealth import stealth
 from bs4 import BeautifulSoup
 
 async def osint(target):
-    url = f'https://www.pinterest.com/{target}'
+    url = f'https://www.twitch.tv/{target}'
 
     try:
         with open("ua.txt", "r", encoding="utf-8") as file:
@@ -61,15 +61,15 @@ async def osint(target):
     body = soup.body.get_text(separator="\n", strip=True) if soup.body else "N/A"
 
     #print(f"Title:✅{title}✅")
-    # print(f"Body:\n{body}\n")
+    #print(f"Body:\n{body}\n")
 
     await browser.close()
 
     try:
-        with open("resources/pinterest/tags.txt", "r", encoding="utf-8") as file:
+        with open("resources/twitch/tags.txt", "r", encoding="utf-8") as file:
             titles = {line.strip() for line in file}
 
-        if title.strip() in titles:
+        if any(title in body for title in titles):
             return 404
         else:
             return 200

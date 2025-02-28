@@ -3,7 +3,7 @@ import random
 import shutil
 import string
 import asyncio
-from tqdm.asyncio import tqdm
+
 from resources.facebook.main import osint as facebook
 from resources.instagram.main import osint as instagram
 from resources.x.main import osint as x
@@ -11,6 +11,7 @@ from resources.youtube.main import osint as youtube
 from resources.snapchat.main import osint as snapchat
 from resources.reddit.main import osint as reddit
 from resources.pinterest.main import osint as pinterest
+from resources.twitch.main import osint as twitch
 from resources.quora.main import osint as quora
 from resources.medium.main import osint as medium
 from resources.mastodon.main import osint as mastodon
@@ -30,14 +31,22 @@ def delete_pycache_():
 def generate_token():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=36))
 
+module_functions = {
+    "facebook": facebook,
+    "x": x,
+    "youtube": youtube,
+    "snapchat": snapchat,
+    "reddit": reddit,
+    "pinterest": pinterest,
+    "twitch": twitch,
+    "quora": quora,
+    "instagram": instagram
+}
 
-async def check_module(name, func, token, progress):
-    status = await func(token)
-    progress.update(1)
-    return name, status
-
+outdated_module = []
 
 async def check_modules():
+    print("📁 Module Inspection Started")
     token = generate_token()
     tasks = {
         "Facebook": facebook,
@@ -62,7 +71,8 @@ async def check_modules():
         elif status == 404:
             print(f"{module} Module Up-to-date")
 
-#asyncio.run(check_modules())# Call This Function When You Want To Check That Module is Working Properly Or Not
+
+asyncio.run(check_modules()) # Call This Function When You Want To Check That Module is Working Properly Or Not
 
 #print(asyncio.run(facebook("zuck")))
 #print(asyncio.run(instagram("zuck")))
@@ -74,7 +84,7 @@ async def check_modules():
 #print(asyncio.run(quora("Joshua-N-Marron")))
 #print(asyncio.run(medium("realalexnguyen")))
 print(asyncio.run(mastodon("nixCraftgvhvghgv")))
-
-
+#print(asyncio.run(twitch("zuck")))
+#print(asyncio.run(quora("zuck")))
 
 delete_pycache_()
