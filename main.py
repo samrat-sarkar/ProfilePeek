@@ -13,6 +13,8 @@ from resources.reddit.main import osint as reddit
 from resources.pinterest.main import osint as pinterest
 from resources.twitch.main import osint as twitch
 from resources.quora.main import osint as quora
+from resources.medium.main import osint as medium
+from resources.mastodon.main import osint as mastodon
 
 def delete_pycache_():
     resources_path = "resources"
@@ -46,18 +48,29 @@ outdated_module = []
 async def check_modules():
     print("📁 Module Inspection Started")
     token = generate_token()
-    for module_name, module_function in module_functions.items():
-        try:
-            status = await module_function(token)
-            if status == 200:
-                outdated_module.append(module_name)
-                print(f"{module_name.capitalize()} Module Outdated")
-            elif status == 404:
-                print(f"{module_name.capitalize()} Module Up-to-date")
-            else:
-                print(f"{module_name.capitalize()} Module returned status: {status}")
-        except Exception as e:
-            print(f"Error: {module_name.capitalize()}: {e}")
+    tasks = {
+        "Facebook": facebook,
+        "X": x,
+        "YouTube": youtube,
+        "Snapchat": snapchat,
+        "Reddit": reddit,
+        "Instagram": instagram,
+        "Pinterest": pinterest,
+        "Quora": quora,
+        "Medium": medium,
+        "Mastodon": mastodon,
+    }
+
+    with tqdm(total=len(tasks), desc="Checking Modules", unit="module") as progress:
+        coroutines = [check_module(name, func, token, progress) for name, func in tasks.items()]
+        results = await asyncio.gather(*coroutines, return_exceptions=False)
+
+    for module, status in results:
+        if status == 200:
+            print(f"{module} Module Outdated")
+        elif status == 404:
+            print(f"{module} Module Up-to-date")
+
 
 asyncio.run(check_modules()) # Call This Function When You Want To Check That Module is Working Properly Or Not
 
@@ -68,6 +81,9 @@ asyncio.run(check_modules()) # Call This Function When You Want To Check That Mo
 #print(asyncio.run(snapchat("zuck")))
 #print(asyncio.run(reddit("zuck")))
 #print(asyncio.run(pinterest("zuck")))
+#print(asyncio.run(quora("Joshua-N-Marron")))
+#print(asyncio.run(medium("realalexnguyen")))
+print(asyncio.run(mastodon("nixCraftgvhvghgv")))
 #print(asyncio.run(twitch("zuck")))
 #print(asyncio.run(quora("zuck")))
 
