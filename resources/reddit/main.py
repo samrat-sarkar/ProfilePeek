@@ -6,7 +6,7 @@ from pyppeteer import launch
 from pyppeteer_stealth import stealth
 from bs4 import BeautifulSoup
 
-async def osint(target):
+async def osint(target, debug=0):
     url = f'https://www.reddit.com/user/{target}'
 
     try:
@@ -60,8 +60,9 @@ async def osint(target):
     title = soup.title.string if soup.title else "N/A"
     body = soup.body.get_text(separator="\n", strip=True) if soup.body else "N/A"
 
-    # print(f"Title:✅{title}✅")
-    # print(f"Body:\n{body}\n")
+    if debug == 1:
+        print(f"Title:-->{title}<--")
+        print(f"Body:-->{body}<--")
 
     await browser.close()
 

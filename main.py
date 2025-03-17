@@ -1,9 +1,8 @@
+import asyncio
 import os
 import random
 import shutil
 import string
-import asyncio
-
 from resources.facebook.main import osint as facebook
 from resources.instagram.main import osint as instagram
 from resources.x.main import osint as x
@@ -28,63 +27,25 @@ def delete_pycache_():
             except Exception as e:
                 return
 
-def generate_token():
-    return ''.join(random.choices(string.ascii_letters + string.digits, k=36))
+modules = [facebook, instagram, x, youtube, snapchat, reddit,
+           pinterest, twitch, quora, medium, mastodon]
 
-module_functions = {
-    "facebook": facebook,
-    "x": x,
-    "youtube": youtube,
-    "snapchat": snapchat,
-    "reddit": reddit,
-    "pinterest": pinterest,
-    "twitch": twitch,
-    "quora": quora,
-    "instagram": instagram
-}
+token = ''.join(random.choices(string.ascii_letters + string.digits, k=36))
 
-outdated_module = []
+async def run_modules(target):
+    print(f"Module Verification Token: {token}")
+    for module in modules:
+        module_name = module.__module__.split(".")[1]
+        request1 = await module(token)
+        if request1 == 200:
+            print(f"{module_name} [X] Module Outdated")
+            await module(token, debug=1)
+        elif request1 == 404:
+            request2 = await module(target)
+            if request2 == 200:
+                print(f"[{target}] Found at [{module_name.upper()}]")
+            elif request2 == 404:
+                print(f"[{target}] Not Found [{module_name.upper()}]")
 
-async def check_modules():
-    print("📁 Module Inspection Started")
-    token = generate_token()
-    tasks = {
-        "Facebook": facebook,
-        "X": x,
-        "YouTube": youtube,
-        "Snapchat": snapchat,
-        "Reddit": reddit,
-        "Instagram": instagram,
-        "Pinterest": pinterest,
-        "Quora": quora,
-        "Medium": medium,
-        "Mastodon": mastodon,
-    }
-
-    with tqdm(total=len(tasks), desc="Checking Modules", unit="module") as progress:
-        coroutines = [check_module(name, func, token, progress) for name, func in tasks.items()]
-        results = await asyncio.gather(*coroutines, return_exceptions=False)
-
-    for module, status in results:
-        if status == 200:
-            print(f"{module} Module Outdated")
-        elif status == 404:
-            print(f"{module} Module Up-to-date")
-
-
-asyncio.run(check_modules()) # Call This Function When You Want To Check That Module is Working Properly Or Not
-
-#print(asyncio.run(facebook("zuck")))
-#print(asyncio.run(instagram("zuck")))
-#print(asyncio.run(x("zuck")))
-#print(asyncio.run(youtube("zuck")))
-#print(asyncio.run(snapchat("zuck")))
-#print(asyncio.run(reddit("zuck")))
-#print(asyncio.run(pinterest("zuck")))
-#print(asyncio.run(quora("Joshua-N-Marron")))
-#print(asyncio.run(medium("realalexnguyen")))
-print(asyncio.run(mastodon("nixCraftgvhvghgv")))
-#print(asyncio.run(twitch("zuck")))
-#print(asyncio.run(quora("zuck")))
-
+asyncio.run(run_modules("zuck"))
 delete_pycache_()
