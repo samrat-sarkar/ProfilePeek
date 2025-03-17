@@ -50,7 +50,6 @@ async def osint(target, debug=0):
 
     await page.goto(url, {"waitUntil": "networkidle0", "timeout": 60000})
 
-    await asyncio.sleep(5)
 
     content = await page.content()
     await browser.close()
@@ -71,13 +70,13 @@ async def osint(target, debug=0):
             titles = {line.strip() for line in file}
 
         if any(title in body for title in titles):
-            return 404
+            return 404, None
         else:
-            return 200
+            return 200, url
 
     except Exception as e:
         if "'NoneType' object has no attribute 'strip'" in str(e):
-            return 404
+            return 404, None
         else:
             print(f"Error : {e}")
 

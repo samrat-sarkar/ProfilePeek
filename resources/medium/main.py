@@ -35,7 +35,6 @@ async def osint(target, debug=0):
 
     await page.goto(url, {"waitUntil": "domcontentloaded"})
 
-    await asyncio.sleep(5)
 
     content = await page.content()
     await browser.close()
@@ -54,9 +53,9 @@ async def osint(target, debug=0):
             titles = {line.strip() for line in file}
 
         if title.strip() in titles:
-            return 404
+            return 404, None
         else:
-            return 200
+            return 200, url
 
     except Exception as e:
         print(f"Error : {e}")
