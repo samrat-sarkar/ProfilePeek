@@ -7,7 +7,7 @@ import string
 from datetime import datetime
 
 DEVELOPER_MODE = 1 # It should be 0 or 1
-USERNAME = "samratsarkar9999" # Target UserName
+USERNAME = "zuck" # Target UserName
 
 def delete_pycache_():
     resources_path = "resources"
