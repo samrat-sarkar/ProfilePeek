@@ -105,6 +105,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Samrat Sarkar**
   - LinkedIn: [samratsarkar9999](https://www.linkedin.com/in/samratsarkar9999/)
   - Website: [samratsarkar.in](https://samratsarkar.in/)
+- **Vishal Shukla**
+  - LinkedIn: [vishal-shukla11](https://www.linkedin.com/in/vishal-shukla11/)
 
 ## 📞 Support
 If you encounter any issues or have questions, please:
