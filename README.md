@@ -11,7 +11,6 @@ ProfilePeek is an advanced OSINT (Open Source Intelligence) tool designed to dis
 - 📊 Detailed scan reports
 - 🛠️ Modular architecture for easy expansion
 - 🔄 Automatic cache cleanup
-- 📱 Cross-platform compatibility
 
 ## 🚀 Installation
 
